@@ -4,13 +4,22 @@ import Header from './Header';
 import ContentArea from './ContentArea';
 import '../styles/App.scss';
 
+import {
+  BrowserRouter as Router
+  // Switch,
+  // Route,
+  // Link
+} from "react-router-dom";
+
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <ContentArea />
-      <Footer />
-    </div>
+    <Router>
+      <div className="app">
+        <Header />
+        <ContentArea />
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

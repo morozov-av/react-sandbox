@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
 
+  color: #ccffff;
   background: #3399FF;
   flex-basis: 50px;
   box-sizing: border-box;
@@ -17,5 +18,15 @@
 
   li {
     padding: 0 10px;
+
+    a {
+      color: #ccffff;
+      text-decoration: none;
+    }
+
+    .active-link {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
   }
 }
