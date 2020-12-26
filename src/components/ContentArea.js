@@ -3,15 +3,14 @@ import '../styles/ContentArea.scss';
 import { Route } from "react-router-dom";
 
 import RootPage from './RootPage';
+import TicTacToy from './TicTacToy/TicTacToy';
 
 class ContentArea extends React.Component {
   render() {
     return (
       <div className="content-area">
         <Route exact path='/' component={RootPage} />
-        <Route path='/page1'>
-          <div className="page-1-content"> Content of page 1 </div>
-        </Route>
+        <Route path='/page1' component={TicTacToy}/>
         <Route path='/page2'>
           <div className="page-2-content"> Content of page 2 </div>
         </Route>
