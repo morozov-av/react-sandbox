@@ -1,0 +1,220 @@
+.tictacContainer {
+  $light-blue: #14bdac;
+  $dark-blue: #0da192;
+  $light-grey: #cccccc;
+  $dark-grey: #757575;
+
+  border: 1px solid $light-grey;
+  border-radius: 8px;
+  margin-top: 15px;
+
+  .toolbarContainer {
+    .levelSelector {
+      padding: 10px;
+      width: 200px;
+
+      // External component class. Can't access to this by class names
+      // .Dropdown-control
+      div:first-child {
+        color: $dark-grey;
+        border: 0;
+
+        // .Dropdown-placeholder
+        div:first-child {
+          padding-left: 20px;
+        }
+
+        // .Dropdown-arrow
+        div > span {
+          top: 19px;
+          left: 10px;
+        }
+      }
+    }
+
+    .choosePlayers {
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+
+      .firstPlayer,
+      .secondPlayer {
+        width: 190px;
+        margin: 0 4px;
+        padding: 10px 8px;
+        border-radius: 8px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .16);
+      }
+
+      .activePlayer:active {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .16);
+        transition: box-shadow 0.3s ease;
+      }
+
+      .activePlayer {
+        border-bottom: 2px solid $light-blue;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, .16);
+      }
+    }
+
+    .currentPlayer {
+      color: $dark-grey;
+      font-size: 0.9em;
+      height: 45px;
+      line-height: 45px;
+      text-align: center;
+    }
+  }
+
+
+  .fieldContainer {
+    height: 230px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: $light-blue;
+
+    $cell-size: 64px;
+    $lattice-width: 6px;
+    $winning-cross-width: 8px;
+    $table-width: $cell-size * 3 + $lattice-width * 2;
+    $table-height: $cell-size * 3 + $lattice-width * 2;
+
+    @keyframes lattice-animation {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes circle-animation {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes cross-animation {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes cross-out-vertical-and-horizontal-combinations {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes cross-out-diagonal-combinations {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .lattice svg {
+      position: absolute;
+      z-index: 0;
+      margin: auto;
+      width: $table-width;
+      height: $table-height;
+      left: 0;
+      right: 0;
+      stroke: $dark-blue;
+
+      path {
+        stroke-width: $lattice-width;
+        stroke-dasharray: 100%;
+        stroke-dashoffset: 100%;
+        animation: lattice-animation 1.5s 1 forwards;
+      }
+    }
+
+    .svgColorLight {
+      stroke: #f2ebd3;
+    }
+
+    .svgColorDark {
+      stroke: #545454;
+    }
+
+    .circle {
+      svg {
+        width: $cell-size;
+        height: $cell-size;
+
+        path {
+          fill: none;
+          stroke-width: $lattice-width;
+          stroke-dasharray: 150.8; // 2 * PI * R where R = 24
+          stroke-dashoffset: 150.8; // 2 * PI * R where R = 24
+          animation: circle-animation 0.5s 1 forwards;
+        }
+      }
+    }
+
+    .cross svg {
+      width: $cell-size;
+      height: $cell-size;
+
+      path {
+        stroke-width: $lattice-width;
+        stroke-dasharray: 110%;
+        stroke-dashoffset: 110%;
+        animation: cross-animation 0.5s 1 forwards;
+      }
+    }
+
+    .horizontalFirst svg,
+    .horizontalSecond svg,
+    .horizontalThird svg,
+    .verticalFirst svg,
+    .verticalSecond svg,
+    .verticalThird svg,
+    .fromTopLeftToRightBottom svg,
+    .fromBottomLeftToRightTop svg {
+      position: absolute;
+      z-index: 5;
+      margin: auto;
+      width: $table-width;
+      height: $table-height;
+      left: 0;
+      right: 0;
+
+      path {
+        stroke-width: $winning-cross-width;
+      }
+    }
+
+    .horizontalFirst path,
+    .horizontalSecond path,
+    .horizontalThird path,
+    .verticalFirst path,
+    .verticalSecond path,
+    .verticalThird path {
+      stroke-dasharray: 100%;
+      stroke-dashoffset: 100%;
+      animation: cross-out-vertical-and-horizontal-combinations 0.5s 1 forwards;
+    }
+
+    .fromTopLeftToRightBottom path,
+    .fromBottomLeftToRightTop path {
+      stroke-dasharray: 141.4%; // root of 2
+      stroke-dashoffset: 141.4%; // root of 2
+      animation: cross-out-diagonal-combinations 0.5s 1 forwards;
+    }
+
+    .field {
+      display: grid;
+      position: relative;
+      z-index: 3;
+      grid-template: repeat(3, $cell-size) / repeat(3, $cell-size);
+      width: $table-width;
+      height: $table-height;
+      gap: $lattice-width;
+      margin: auto;
+    }
+  }
+
+  .restartButtonContainer {
+    cursor: pointer;
+
+    .restartText {
+      color: $light-blue;
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: center;
+      min-height: 28px;
+      padding: 10px;
+    }
+  }
+}
